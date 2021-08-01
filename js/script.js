@@ -216,22 +216,48 @@ window.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-            const formData = new FormData(form);
-            request.send(formData);
+            const formData = new FormData(form),
+                obj = {};
+            formData.forEach((value, key) => {
+                obj[key] = value;
+            });
 
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
+            fetch('server.php', {
+                method: 'POST',
+                body: JSON.stringify(obj),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+                .then(data => data.text())
+                .then(data => {
                     modal.style.display = 'block';
                     showThanksModal(message.success);
-                    form.reset();
-                    console.log(request.response);
-                } else {
+                    console.log(data);
+                })
+                .catch(() => {
                     showThanksModal(message.failure);
+                })
+                .finally(() => {
                     form.reset();
-                }
-            });
+                });
+
+            // fetch('server.php', {
+            //     method: "POST",
+            //     body: formData
+            // })
+            // .then(data => data.text())
+            // .then(data => {
+            //     modal.style.display = 'block';
+            //     showThanksModal(message.success);
+            //     console.log(data);
+            // })
+            // .catch(() => {
+            //     showThanksModal(message.failure);
+            // })
+            // .finally(() => {
+            //     form.reset();
+            // });
 
         });
     }
@@ -262,4 +288,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({ name: 'Ivan', age: 19 }),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(json => console.log(json));
+
+
+    
 });
