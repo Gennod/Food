@@ -207,7 +207,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const forms = document.querySelectorAll('form'),
         message = {
             success: 'Спасибо, мы с вами скоро свяжемся!',
-            loading: 'Loading...',
             failure: 'Что-то пошло не так...'
         };
 
@@ -221,11 +220,19 @@ window.addEventListener('DOMContentLoaded', () => {
             request.open('POST', 'server.php');
             const formData = new FormData(form);
             request.send(formData);
-            form.reset();
+
             request.addEventListener('load', () => {
-                console.log(request.response);
-                showThanksModal(message.success);
+                if (request.status === 200) {
+                    modal.style.display = 'block';
+                    showThanksModal(message.success);
+                    form.reset();
+                    console.log(request.response);
+                } else {
+                    showThanksModal(message.failure);
+                    form.reset();
+                }
             });
+
         });
     }
 
