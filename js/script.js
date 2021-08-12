@@ -1,11 +1,11 @@
 "use strict";
-import tabs from './js/modules/tabs';
-import timer from './js/modules/timer';
-import modal from './js/modules/modal';
-import forms from './js/modules/forms';
-import slider from './js/modules/slider';
-import classes from './js/modules/classes';
-import calculator from './js/modules/calculator';
+import tabs from './modules/tabs';
+import timer from './modules/timer';
+import modal from './modules/modal';
+import forms from './modules/forms';
+import slider from './modules/slider';
+import classes from './modules/classes';
+import calculator from './modules/calculator';
 
 window.addEventListener('DOMContentLoaded', () => {
 

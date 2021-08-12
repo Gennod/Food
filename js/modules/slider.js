@@ -1,6 +1,6 @@
-import {getZero} from './timer';
+import { getZero } from './timer';
 
-function slider({container, slide, prevArrow, nextArrow, totalCounter, currentCounter, wrapper, field}) {
+function slider({ container, slide, prevArrow, nextArrow, totalCounter, currentCounter, wrapper, field }) {
     // slider
 
     const sliders = document.querySelectorAll(slide),
@@ -17,9 +17,6 @@ function slider({container, slide, prevArrow, nextArrow, totalCounter, currentCo
     slideInner.style.display = 'flex';
     slideInner.style.width = 100 * sliders.length + '%';
     slideInner.style.transition = '0.6s all';
-    sliders.forEach(slide => {
-        slide.style.width = slideWidth;
-    });
     slidesWrapper.style.overflow = 'hidden';
     slidersTotal.textContent = getZero(sliders.length);
     sliderCurrentCounter.textContent = getZero(slideIndex);
@@ -43,7 +40,7 @@ function slider({container, slide, prevArrow, nextArrow, totalCounter, currentCo
                 slideIndex = index + 1;
                 sliderCurrentCounter.innerHTML = getZero(slideIndex);
             });
-            offer = removeNumbers(slideWidth) * index;
+            offer = slider.clientWidth * index;
             slideInner.style.transform = `translateX(-${offer}px)`;
             dot.style.backgroundColor = 'black';
 
